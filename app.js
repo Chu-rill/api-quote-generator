@@ -16,24 +16,23 @@ let color = [
   '#c16e70ff'
 ];
 
-function getData(){
+function getData() {
   fetch('https://type.fit/api/quotes')
-.then(response => response.json())
-.then(data => {
-  console.log(data)
-  let random1 = Math.floor(Math.random() * data.length);
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      let random1 = Math.floor(Math.random() * data.length);
 
-  title.innerText = data[random1].author;
-  text.innerText = data[random1].text;
-  
-  let random2 = Math.floor(Math.random() * color.length);
-  body.style.backgroundColor = color[random2];
-  console.log(random1);
-})
+      // Splitting the author string and taking the part before the comma
+      let authorWithoutTypeFit = data[random1].author.split(',')[0].trim();
 
+      title.innerText = authorWithoutTypeFit;
+      text.innerText = data[random1].text;
 
+      let random2 = Math.floor(Math.random() * color.length);
+      body.style.backgroundColor = color[random2];
+      console.log(random1);
+    });
 }
-
-
 
 btn.addEventListener("click", getData);
